@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap</title>
+
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+
+    <body
+      style="background-image: url('/static/images/img-3.jpg')"
+      class="min-h-screen flex items-center justify-center">
+      <div class="bg-gray-200 p-6 rounded-lg shadow-md w-full max-w-xl">
+        <div class="bg-green-500 text-center text-black font-semibold">
+          {% if messages %}
+          <div class="container mx-auto px-4 mt-4">
+            {% for message in messages %}
+            <div
+              class=" px-4 py-3 rounded mb-3 {% if message.tags == 'success' %} bg-green-500 {% else %} bg-red-500 {% endif %}">
+              {{message}}
+            </div>
+
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <h2 class="text-2xl font-semibold mb-4 text-center">
+          Add participant
+        </h2>
+
+        <form method="POST" class="">
+          {% csrf_token %}
+          <div class="text-pretty mt-3">
+            <hr class="border-t-2 border-white" />
+          </div>
+          <div>{{ parti_form.as_p }}</div>
+
+          <div>
+            <button
+              type="submit"
+              class="bg-blue-500 border m-2 p-1 rounded-lg text-white px-4 py-2 hover:text-gray-200 hover:underline hover:scale-110">
+              Add Participant
+            </button>
+          </div>
+        </form>
+      </div>
+
+  </body>
+</html>

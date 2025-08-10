@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="bg-green-500 text-center text-black font-semibold">
+    {% if messages %}
+    <div class="container mx-auto px-4 mt-4">
+        {% for message in messages %}
+        <div
+            class=" px-4 py-3 rounded mb-3 {% if message.tags == 'success' %} bg-red-500 {% else %} bg-red-500 {% endif %}">
+            {{message}}
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="bg-gradient-to-r from-gray-200 to-blue-100 m-3 p-4 rounded">
+    <h1 class="text-2xl text-center font-semibold underline mb-4">My RSVP Events</h1>
+
+    <!-- Table Header -->
+    <div class="grid grid-cols-4 text-white bg-rose-500 font-bold border-b-2 p-2 rounded mb-2">
+        <div>Event</div>
+        <div>Date</div>
+        <div>Time</div>
+        <div>Location</div>
+    </div>
+
+    <!-- Each row -->
+    {% for event in rsvp_events %}
+    <div class="grid grid-cols-4 odd:bg-rose-100 even:bg-rose-200 p-2 border-b">
+        <li>
+            <a href="{% url 'event-details' event.id %}">{{ event.name }}</a>
+        </li>
+        <div>{{ event.date }}</div>
+        <div>{{ event.time }}</div>
+        <div>{{ event.location }}</div>
+    </div>
+    {% empty %}
+    <div class="text-gray-500 italic">You have no RSVP events.</div>
+    {% endfor %}
+</div>
+{% endblock content %}

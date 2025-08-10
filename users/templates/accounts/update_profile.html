@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  
+    <h1 class="text-2xl text-center text-gray-600 underline">Your Profile</h1>
+    <div class="mx-auto w-1/2 my-9">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="px-2 py-1 {% if message.tags == 'success' %}bg-green-500{% endif %}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                {{error}}
+            {% endfor %}
+        {% endif %}
+        {% comment %}
+            {% if form.non_field_errors %}
+                {% for error in errors %}
+                    {{error}}
+                {% endfor %}
+            {% endif %} 
+        {% endcomment %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="bg-rose-500 px-2 py-1 rounded text-white mt-3" type="submit">Update</button>
+        </form>
+        <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+    </div>
+{% endblock content %}

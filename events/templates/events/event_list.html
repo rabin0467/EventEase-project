@@ -1,0 +1,101 @@
+{% extends "events/navbar.html" %} {% block event %}
+
+
+<div class="bg-green-500 text-center text-black font-semibold">
+  {% if messages %}
+  <div class="container mx-auto px-4 mt-4">
+    {% for message in messages %}
+    <div
+      class=" px-4 py-3 rounded mb-3 {% if message.tags == 'success' %} bg-green-500 {% else %} bg-red-500 {% endif %}">
+      {{message}}
+    </div>
+
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% comment %} Dashboard {% endcomment %}
+<div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4 text-center text-xl font-bold mx-auto mt-6">
+  <a href="{% url 'event-list' %}?type=all" class=" hover:bg-white hover:scale-110 hover:rounded-sm transition ">
+    <div class="bg-50 p-6 shadow-lg rounded-lg transition">
+      <h1 class="text-pretty">Total Event</h1>
+      <hr class="my-2 border-t-2 border-white" />
+      <h2 class="text-xl">{{counts.total_event}}</h2>
+    </div>
+  </a>
+  <a href="{% url 'event-list' %}?type=ongoing" class="hover:bg-white hover:scale-110 hover:rounded-sm transition ">
+    <div class="bg-50 p-6 shadow-lg rounded-lg transition">
+      <h1 class="text-pretty">On-Going Event</h1>
+      <hr class="my-2 border-t-2 border-white" />
+      <h2 class="text-xl">{{counts.on_going_event}}</h2>
+    </div>
+  </a>
+
+  <a href="{% url 'event-list' %}?type=upcoming" class="hover:bg-white hover:scale-110 hover:rounded-sm transition ">
+    <div class="bg-50 p-6 shadow-lg rounded-lg transition">
+      <h1 class="text-pretty ">Upcoming Events</h1>
+      <hr class="my-2 border-t-2 border-white" />
+      <h2 class="text-center">{{counts.upcoming_event}}</h2>
+    </div>
+  </a>
+  <a href="{% url 'event-list' %}?type=completed " class=" hover:bg-white hover:scale-110 hover:rounded-sm transition ">
+        <div class=" bg-50 p-6 shadow-lg rounded-lg transition">
+    <h1 class="text-pretty ">Completed Events</h1>
+    <hr class="my-2 border-t-2 border-white" />
+    <h2 class="text-center">{{counts.completed_event}}</h2>
+</div>
+</a>
+</div>
+
+{% comment %} Today's Event {% endcomment %}
+<div class="bg-gray-100 rounded-xl mt-5 shadow-sm border-b border-gray-100 text-xl text-black">
+  <div class="bg-gray-100 rounded py-2 px-3 m-2">
+    <h1 class="text-3xl font-bold text-center ">
+      {% if type == 'upcoming' %}
+      Upcoming Event: {{counts.upcoming_event}}
+      {% elif type == 'completed' %}
+      Completed Event: {{counts.completed_event}}
+      {% elif type == 'all' %}
+      Total Event: {{counts.total_event}}
+      {% else %}
+      On-Going Event: {{counts.on_going_event}}
+      {% endif %}
+      <hr class="border-t-2 bg-blue-200">
+    </h1>
+  </div>
+
+  {% if events %}
+  <div class="bg-rose-500 grid grid-cols-5 gap-4 py-3 px-3">
+    <div class="text-xl text-white text-pretty font-bold ">Event Name</div>
+    <div class="text-xl text-white text-pretty  font-bold ">Event Date</div>
+    <div class="text-xl text-white text-pretty  font-bold ">Event Time</div>
+    <div class="text-xl text-white text-pretty  font-bold ">Event Category</div>
+    <div class="text-xl text-white text-pretty  font-bold ">RSVP</div>
+
+  </div>
+  <hr class="border-t-2 bg-blue-100">
+
+  {% for event in events %}
+  <div class="bg-rose-200 grid grid-cols-5 gap-4 px-3 py-2 border-b rounded-sm">
+    <span>{{forloop.counter}}.
+      <a href="{% url 'event-details' event.id %}">{{ event.name }}</a>
+    </span>
+    <span>{{ event.date }}</span>
+    <span>{{ event.time }}</span>
+    <span>{{event.category}}</span>
+    <a href="{% url 'rsvp-event' event.id  %}">
+      <button class=" py-1 px-2 rounded-sm  hover:text-blue-500 hover:underline hover:scale-110">RSVP</button>
+    </a>
+  </div>
+  <hr class="border-t-2 bg-blue-100">
+  {% endfor %}
+  {% else %}
+  <div class="text-center text-red-500 font-xl py-4">
+    No ongoing events today.
+  </div>
+  {% endif %}
+</div>
+</div>
+
+{% endblock event %}

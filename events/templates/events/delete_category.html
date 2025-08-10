@@ -1,0 +1,32 @@
+{% extends "organizer/organizer_navbar.html" %}
+{% block content %}
+<div class="bg-green-500 text-center text-black font-semibold">
+  {% if messages %}
+  <div class="container mx-auto px-4 mt-4">
+    {% for message in messages %}
+    <div
+      class=" px-4 py-3 rounded mb-3 {% if message.tags == 'success' %} bg-green-500 {% else %} bg-red-500 {% endif %}">
+      {{message}}
+    </div>
+
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+
+  <div class="bg-white p-6 rounded-lg shadow-md items-center text-center w-1/2 max-w-xl">
+    <h2 class="text-2xl text-red-600 font-semibold mb-6 text-center">Do You Want To delete This Category?</h2>
+
+    <form action="{% url 'delete-category' category.id %}" method="POST" class="flex justify-center space-x-4"
+      onsubmit="return confirm('Are you sure you want to delete this event?');">
+      {% csrf_token %}
+      <button type="submit" class="bg-red-500 px-4 py-2 rounded text-white hover:text-gray-900">Delete</button>
+      <a href="{% url 'organizer-dashboard' %}"
+        class="ml-4 bg-blue-500 px-4 py-2 rounded text-white hover:text-gray-900">Cancel</a>
+    </form>
+
+  </div>
+</div>
+{% endblock content %}

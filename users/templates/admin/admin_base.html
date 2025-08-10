@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Admin Panel{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body>
+
+  {% include "admin/admin_navbar.html" %}
+
+  <main class="p-4">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  {% include "admin/admin_footer.html" %}
+
+</body>
+</html>

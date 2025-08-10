@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  
+<body class="m-5 p-5 bg-blue-100">
+    <div class=" text-center">
+        <h1 class="text-3xl font-semibold" >Total RSVP Participants</h1>
+    </div>
+    <hr class="border-t-2 border-white">
+    <div class="grid grid-cols-3 items-center text-xl font-bold mt-10 py-3 px-5 bg-rose-200 rounded-md shadow-md">
+        <div class="underline">Name</div>
+        <div class="underline">Email</div>
+        <div class="underline">Events</div>
+    </div> 
+    <hr class="border-t-2 border-blue-100">
+    {% for user in users %}
+        <div class="grid grid-cols-3 px-3 py-2 bg-rose-200 rounded-lg shadow-md">
+            <span>{{forloop.counter}}.  {{user.username}}</span>
+            <div>{{user.email}}</div>
+            <div>
+                {% for event in user.rsvp_events.all %}
+                    <li><span>{{event.name}}</span><br></li>
+                {% empty %}
+                    <span>No Event</span>
+                {% endfor %}
+            </div>
+            
+        </div>
+        <hr class="border-t-2 border-blue-100">
+            {% empty %}
+                <div>No RSVP Participant Found</div>
+    {% endfor %}
+</body>
+{% endblock content %}

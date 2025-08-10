@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  
+  <body style="background-image: url('/static/images/img-3.jpg');">
+      <h1 class="text-2xl font-semibold text-center text-black text-pretty p-6 ">
+        Category of Event: {{event.category.name}}
+      </h1>
+      <hr />
+      <div
+        class="grid lg:grid-cols-2 md:grid-cols-1  sm:grid-cols-1 bg-white shadow-sm rounded-sm gap-4 mt-5 px-3 py-3">
+        <div class="relative h-[400px] w-full">
+          <img
+            class="h-full w-full object-cover rounded"
+            src="{{event.image.url}}"
+            alt="event image" />
+
+          <div class="absolute top-0 left-0 text-gray-100 py-8 px-8">
+            <h2 class="text-2xl font-bold text-pretty">
+              Project Name: {{event.name}}
+            </h2>
+            <p class="text-xl text-pretty font-bold">
+              Description: {{event.description}}
+            </p>
+            <p class="text-xl text-pretty font-bold">
+              Location: {{event.location}}
+            </p>
+            <div class="">
+              <h2 class="text-pretty font-bold">Start Date : {{event.date}}</h2>
+              <h2 class="text-pretty font-bold">End Date : {{event.date}}</h2>
+            </div>
+          </div>
+        </div>
+      
+        <div class="m-5 px-3 py-3">
+          <h1 class="text-xl text-center ">About This Event <hr></h1>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus tenetur non iste, blanditiis repellendus aperiam
+            ut minus eaque dignissimos laborum dolorem expedita porro sed? Enim eligendi at porro debitis exercitationem
+            id fuga doloribus praesentium quod unde, tenetur maiores assumenda aut, fugiat omnis minima itaque excepturi, officia quibusdam 
+            necessitatibus! ut numquam expedita reprehenderit.
+            </p>
+            <div class="text-center mt-8 ">
+              <a href="{% url 'rsvp-event' event.id %}" class="bg-rose-500 text-white px-2 py-1 rounded-md hover:scale-110">RSVP Event</a>
+
+            </div>
+        </div>
+      </div>
+      <div class="m-5 px-3 py-3">
+        <h1 class="text-2xl font-bold text-center">Total Participants in this Event</h1>
+        <hr class="border-t-2 border-black">
+        <div class="grid grid-cols-3 sm:grid-cols-2">
+          <h1 class="font-bold text-xl underline">Name</h1>
+          <h1 class="font-bold text-xl underline">Email</h1>
+        </div>
+        <div>
+          {% for participant in event.participants.all %}
+            <div class="grid grid-cols-3 sm:grid-cols-2">
+                <span>{{forloop.counter}}.  {{participant.name}}</span>
+                <span>{{participant.email}}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+  </body>
+{% endblock content %}

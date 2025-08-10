@@ -1,0 +1,84 @@
+{% extends "organizer/organizer_navbar.html" %}
+{% block content %}
+<div class="mx-5 mt-8">
+    <div class="grid grid-cols-5 items-center bg-rose-500 text-white font-semibold text-center py-2 rounded shadow">
+        <div class="font-bold text-white ">Event</div>
+        <div class="font-bold text-white ">Category</div>
+        <div class="font-bold text-white ">Participants</div>
+        <div class="font-bold text-white ">Update</div>
+        <div class="font-bold text-white ">Delete</div>
+    </div>
+
+    <div class="bg-green-500 text-center text-black font-semibold">
+          {% if messages %}
+          <div class="container mx-auto px-4 mt-4">
+            {% for message in messages %}
+            <div
+              class=" px-4 py-3 rounded mb-3 {% if message.tags == 'success' %} bg-green-500 {% else %} bg-red-500 {% endif %}">
+              {{message}}
+            </div>
+
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        
+    {% for event in events %}
+        <div class="grid grid-cols-5 odd:bg-rose-200 even:bg-rose-100 text-center rounded-lg shadow px-2">
+            <div class="text-start">
+                <a href="{% url 'event-details' event.id %}"
+                    class="text-start ">{{forloop.counter}}. {{ event.name }}
+                </a>
+            </div>
+
+            <div class="text-gray-600 mb-2">{{ event.category }}</div>
+            
+            <div>
+                {% if event.rsvp_participants.all %}
+                    <ul class="list-disc list-inside mb-2">
+                        {% for participant in event.rsvp_participants.all %}
+                            <li>{{ participant.username }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No participants</p>
+                {% endif %}
+            </div>
+            
+            <div>
+                <a href="{% url 'update-event' event.id %}" class="text-blue-500 hover:underline ">Update</a>
+            </div>
+            <div>
+                <a href="{% url 'delete-event' event.id %}" class="text-red-500 hover:underline">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}
+
+
+
+{% comment %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
+    <a href="{% url " create-category"
+        %}"class="bg-rose-500 px-2 py-2 m-5 rounded-lg text-center text-2xl font-bold hover:text-gray-200 ">Create a new
+        Category</a>
+
+
+    <a href="{% url " create-event"
+        %}"class="bg-rose-500 px-2 py-2 m-5 rounded-lg text-center text-2xl font-bold hover:text-gray-200 ">Create a new
+        Event</a>
+</div>
+{% endcomment %}
+
+
+
+
+<div class="flex justify-between mt-8 gap-4 ">
+    <a href="{% url " update-event" event.id %}"
+        class="bg-blue-500 text-white px-2 py-1 rounded-md hover:scale-110">Update Event</a>
+    <a href="{% url " delete-event" event.id %}"
+        class="bg-red-500 text-white px-2 py-1 rounded-md hover:scale-110">Delete Event</a>
+</div>

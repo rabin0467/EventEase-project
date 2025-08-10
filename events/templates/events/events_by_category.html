@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<body style="background-image: url('/static/images/img-3.jpg');">
+    <div class=m-5>
+        <div class="text-center mt-5 text-pretty">
+            <h1 class="text-3xl font-semibold m-2 p-2">All Category with Events</h1>
+        </div>
+        <hr class="border-t-2 border-white" />
+        <div class="grid grid-cols-2 items-center text-white text-xl font-bold mt-10 py-3 px-5 bg-rose-500 rounded-md shadow-md">
+            <div>Name</div>
+            <div>Events</div>
+
+        </div>
+        <hr class="border-t-2 border-blue-100" />
+    {% for category in categories %}
+        <div class="grid grid-cols-2 px-3 py-2 odd:bg-rose-200 even:bg-rose-100 rounded-lg shadow-md">
+            <span>{{forloop.counter}}.  <a href="{% url 'category-details' category.id %}">{{category.name}}</a></span>
+            <div>
+                {% for event in category.events.all %}
+                    <li><span><a href="{% url 'event-details' event.id %}">{{event.name}}</a></span><br></li>
+                {% empty %}
+                    <span>No Event</span>
+                {% endfor %}
+            </div>
+            
+        </div>
+        <hr class="border-t-2 border-blue-100">
+            {% empty %}
+                <div>No RSVP Participant Found</div>
+    {% endfor %}
+
+    </div>
+</body>
+{% endblock content %}

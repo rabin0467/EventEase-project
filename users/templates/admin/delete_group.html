@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap</title>
+
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-xl">
+        <h2 class="text-2xl text-red-600 font-semibold mb-6 text-center">Do You Want To delete This Event?</h2>
+
+        <form action="{% url 'delete-group' group.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this event?');">
+            {% csrf_token %}
+            <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+            <a href="{% url 'admin-dashboard' %}"> Cancel</a>
+        </form>
+
+    </div>
+  </body>
+  </html>
