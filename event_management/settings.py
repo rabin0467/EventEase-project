@@ -21,7 +21,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = [
-    'event-management-project-1-vcjr.onrender.com',
+    'https://eventease-project.onrender.com',
     'localhost',
     '127.0.0.1'
 ]
