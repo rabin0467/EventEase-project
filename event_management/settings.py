@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['eventease-project.onrender.com']
 AUTH_USER_MODEL = 'users.CustomUser'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://event-management-project-1-vcjr.onrender.com'
+    'https://eventease-project.onrender.com'
 
 ]
 
