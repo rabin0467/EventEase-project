@@ -17,9 +17,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eventease-project.onrender.com']
+# ALLOWED_HOSTS = ['eventease-project.onrender.com']
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # ALLOWED_HOSTS = [
 #     'https://eventease-project.onrender.com',
 #     'localhost',
@@ -169,7 +169,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 # FRONTEND_URL = 'http://127.0.0.1:8000'
-FRONTEND_URL = 'https://event-management-project-1-vcjr.onrender.com'
+FRONTEND_URL = 'https://eventease-project.onrender.com'
+
 
 LOGIN_URL = '/users/sign-in/'
 LOGIN_REDIRECT_URL = '/users/profile/'
